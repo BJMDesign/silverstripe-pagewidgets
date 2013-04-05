@@ -14,7 +14,7 @@ class MultiTeaserImageBlockWidget extends MultiTeaserBlockWidget {
 		return true;
 	}
 
-
+	
 	/**
 	 * @return MultiTeaserBlockItem
 	 */
@@ -33,7 +33,7 @@ class MultiTeaserImageBlockWidget extends MultiTeaserBlockWidget {
 		}
 		return $set;
 	}
-
+	
 }
 
 class MultiTeaserImageBlockItem extends MultiTeaserBlockItem {

@@ -221,6 +221,30 @@
 	margin-bottom: 1620px;
 }
 
+.gridRow.PadRight1 {
+	margin-right: 180px;
+}
+
+.gridRow.PadRight2 {
+	margin-right: 360px;
+}
+
+.gridRow.PadRight3 {
+	margin-right: 540px;
+}
+
+.gridRow.PadLeft1 {
+	margin-left: 180px;
+}
+
+.gridRow.PadLeft2 {
+	margin-left: 360px;
+}
+
+.gridRow.PadLeft3 {
+	margin-left: 540px;
+}
+
 .gridRow .overflow {
 	overflow: visible;
 }
@@ -544,3 +568,4 @@
 .CarouselWidget .carousel-control.right:hover {
 	background-position: -27px -27px;
 }
+

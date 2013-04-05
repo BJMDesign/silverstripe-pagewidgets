@@ -50,30 +50,69 @@ class PageWidgetRow extends ViewableData {
 		$rowObjects = array();
 		foreach( $rows as $rowNum => $row ) {
 			ksort($row->widgets);
+			
+			$empty_left = 0;	//how many cells on the left are empty
+			$empty_right = 0;	//	ditto right
+			
 			if( $keys = array_keys($row->widgets) ) {
 				$minCell = $keys ? array_shift($keys) : 1;
 				$maxCell = self::$num_cols;
 				for( $cell = $minCell; $cell <= $maxCell;  ) {
 					if( @!$row->widgets[$cell] ) {
-						$row->widgets[$cell] = new EmptyWidget();
+						
+						$row->widgets[$cell] = new FakeWidget();
+						
+						//use CSS margins to simulate placeholders at 
+						//	left and right, not placeholder divs:
+						if ($cell - $minCell <= $empty_left)
+							$empty_left++;
+						else if ($maxCell - $cell <= $empty_right)
+							$empty_right++;								
+						else //use a placeholder if it's in the middle
+							$row->widgets[$cell] = new EmptyWidget();
+												
 					}
 					$cell += $row->widgets[$cell]->ColSpan();
 				}
+				
+				if ($empty_left > 0)
+					$row->addCSSClass('PadLeft' . $empty_left);
+				
+				if ($empty_right > 0)
+					$row->addCSSClass('PadRight' . $empty_right);
+				
 			}
 		}
+		
 		// adjust for row span and add class to the page if we have widgets in cols 1 or 2
 		$adjust = array();
 		$minCol = -1;
 		$delta = 0;
 		foreach( $rows as $rowNum => $row ) {
 			$rowSpan = $row->RowSpan();
+			$minspan = 9999;
 			foreach( $row->widgets as $colNum => $widget ) {
 				if( ($minCol == -1) || ($colNum < $minCol) ) {
 					$minCol = $colNum;
 				}
+				
+				/* we need to take the minimum rowspan into account
+				 * 		i.e when we say 'rowspan' here we actually mean
+				 * 		'difference between the height of cells in this 
+				 * 		row'. 
+				 * 		e.g: A row with 3 cells with rowspans 2,2,3 has a 
+				 * 			'RowSpan' of 1, not 3.
+				 */	
+				if ($widget->RowSpan() < $minspan) 
+					$minspan = $widget->RowSpan(); 
+				
 			}
-			if( $rowSpan > 1 ) {
+			if ($minspan > 1)
+				$rowSpan -= ($minspan-1);
+			
+			if( $rowSpan > 1) {
 				for( $i = $rowNum + 1; isset($rows[$i]); $i++ ) {
+					
 					if( sizeof($rows[$i]->widgets) ) {
 						$rows[$i]->addCSSClass('afterRowSpan'.$rowSpan);
 						$rowSpan -= $rows[$i]->RowSpan();
@@ -129,6 +168,10 @@ class PageWidgetRow extends ViewableData {
 
 }
 
+/**
+ * An empty widget - renders a placeholder element for spacing.
+ * @author antisol
+ */
 class EmptyWidget extends ViewableData {
 
 	public function Widget() {
@@ -147,4 +190,18 @@ class EmptyWidget extends ViewableData {
 		return 'placeholder';
 	}
 
+}
+
+
+/**
+ * Like an EmptyWidget, but renders no content at all
+ * @author antisol
+ */
+class FakeWidget extends EmptyWidget {
+	public function Widget() {
+		return '';
+	}
+	public function CSSClasses() {
+		return '';
+	}
 }

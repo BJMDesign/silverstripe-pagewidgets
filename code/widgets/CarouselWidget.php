@@ -68,7 +68,7 @@ class CarouselWidget extends PageWidget {
 		}
 		return $set;
 	}
-
+	
 	/**
 	 * @param DataObjectSet $items
 	 */

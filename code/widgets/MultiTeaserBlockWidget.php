@@ -11,7 +11,7 @@ class MultiTeaserBlockWidget extends PageWidget {
 	static $has_many = array(
 		'TeaserWidgets' => 'TeaserWidget'
 	);
-
+	
 	static $db = array(
 		'Layout' => 'Enum("TwoGridCells,ThreeGridCells,FourGridCells,FourGridCellsTwoColumn,ThreeColumns")',
 		'ThreeColumnWidth' => 'Boolean',
