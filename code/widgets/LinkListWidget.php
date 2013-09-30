@@ -49,6 +49,7 @@ class LinkListWidget extends PageWidget {
 class LinkListItem extends DataObject {
 	static $db = array(
 		'LinkLabel' => 'Varchar',
+		'LinkOnClick' => 'Varchar(255)',
 		'LinkType' => 'Enum("Internal, External, File")',
 		'LinkTargetURL' => 'Varchar(255)',
 		'OpenInLightbox' => 'Boolean'

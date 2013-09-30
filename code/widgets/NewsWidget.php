@@ -7,6 +7,7 @@ class NewsWidget extends PageWidget {
 		'Heading' => 'Varchar',
 		'NumItemsToDisplay' => 'Int',
 		'LinkLabel' => 'Varchar',
+		'LinkOnClick' => 'Varchar(255)',
 		'LinkType' => 'Enum("Internal, External, File")',
 		'LinkTargetURL' => 'Varchar(255)',
 		'OpenInLightbox' => 'Boolean',

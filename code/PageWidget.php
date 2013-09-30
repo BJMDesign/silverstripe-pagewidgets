@@ -174,6 +174,7 @@ class PageWidget extends DataObject {
 				'File//Download a file' => new TreeDropdownField('LinkFileID', 'Download file', 'File')
 		));
 		$fields->addFieldToTab($tab, $group);
+		$fields->addFieldToTab($tab, new TextField('LinkOnClick', 'Link onClick attribute'));
 		$fields->addFieldToTab($tab, new CheckboxField('OpenInLightbox', 'Open the link in a lightbox'));
 	}
 

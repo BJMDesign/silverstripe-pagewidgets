@@ -166,6 +166,7 @@ class MultiTeaserBlockItem extends DataObject {
 		'Title' => 'Varchar',
 		'Body' => 'HTMLText',
 		'LinkLabel' => 'Varchar',
+		'LinkOnClick' => 'Varchar(255)',
 		'LinkType' => 'Enum("Internal, External, File")',
 		'LinkTargetURL' => 'Varchar(255)',
 		'Lightbox' => 'Boolean',
@@ -195,7 +196,9 @@ class MultiTeaserBlockItem extends DataObject {
 		$mainTab->setTitle(_t('SiteTree.TABMAIN', "Main"));
 		$fields->addFieldToTab('Root.Main', $field = new TextField('Title'));
 		$fields->addFieldToTab('Root.Main', $field = new SimpleTinyMCEField('Body'));
+
 		PageWidget::add_link_fields($fields);
+
 		$classes = ClassInfo::subclassesFor('MultiTeaserBlockWidget');
 		$widgets = $this->Page()->Widgets("ClassName IN ('".implode("', '", $classes)."')");
 		if( $widgets->Count() > 1 ) {

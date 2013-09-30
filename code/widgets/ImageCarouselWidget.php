@@ -32,6 +32,7 @@ class ImageCarouselWidgetItem extends CarouselWidgetItem {
 	static $db = array(
 		'Title' => 'Varchar',
 		'LinkLabel' => 'Varchar',
+		'LinkOnClick' => 'Varchar(255)',
 		'LinkType' => 'Enum("Internal, External, File")',
 		'LinkTargetURL' => 'Varchar(255)',
 		'OpenInLightbox' => 'Boolean',
